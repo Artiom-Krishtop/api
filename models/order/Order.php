@@ -8,11 +8,11 @@ use components\Request as Request;
 class Order
 {
   private $url;
-  private $data;
+  private $request;
 
   function __construct($url)
   {
-    $this->data = new Request();
+    $this->request = new Request();
     $this->url = $url;
   }
 
@@ -21,8 +21,8 @@ class Order
   public function getListOrder()
   {
     // вставляем URL запроса
-    $this->data->setURL($this->url);
-    $responseData = $this->data->GET();
+    $this->request->setURL($this->url);
+    $responseData = $this->request->GET();
     return $responseData;
   }
 
@@ -34,10 +34,10 @@ class Order
     $url = $this->url . '?id=' . $id;
 
     // устанавливаем URL в запрос
-    $this->data->setURL($url);
+    $this->request->setURL($url);
 
     // получаем ответ в переменную
-    $responseData = $this->data->GET();
+    $responseData = $this->request->GET();
 
     return $responseData;
   }
@@ -47,16 +47,16 @@ class Order
   public function createOrder($requestData)
   {
     // устанавливаем данные в запрос
-    $this->data->setURL($this->url);
+    $this->request->setURL($this->url);
 
     $requestData = json_encode($requestData, JSON_UNESCAPED_UNICODE);
-    $this->data->setData($requestData);
+    $this->request->setData($requestData);
 
     $header = ['Content-Type:application/json'];
-    $this->data->setHeader($header);
+    $this->request->setHeader($header);
 
     // получаем ответ в переменную
-    $responseData = $this->data->POST();
+    $responseData = $this->request->POST();
 
     return $responseData;
   }

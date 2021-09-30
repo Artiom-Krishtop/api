@@ -15,11 +15,13 @@ class Request
     $this->data = $requestData;
   }
 
+  // установка заголовков
   public function setHeader($requestHeader)
   {
     $this->header = $requestHeader;
   }
 
+  // установка URL 
   public function setURL($url)
   {
     $this->url = $url;

@@ -7,11 +7,11 @@ use components\Request as Request;
 class Products
 {
   private $url;
-  private $data;
+  private $request;
 
   function __construct($url)
   {
-    $this->data = new Request();
+    $this->request = new Request();
     $this->url = $url;
   }
 
@@ -19,10 +19,10 @@ class Products
 
   public function getListProducts()
   {
-    $this->data->setURL($this->url);
+    $this->request->setURL($this->url);
 
     // получаем ответ в переменную
-    $responseData = $this->data->GET();
+    $responseData = $this->request->GET();
 
     return $responseData;
   }
@@ -35,10 +35,10 @@ class Products
     $url = $this->url . '?id=' . $id;
 
     // устанавливаем URL в запрос
-    $this->data->setURL($url);
-    
+    $this->request->setURL($url);
+
     // получаем ответ в переменную
-    $responseData = $this->data->GET();
+    $responseData = $this->request->GET();
 
     return $responseData;
   }
