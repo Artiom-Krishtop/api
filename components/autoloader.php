@@ -1,20 +1,16 @@
 <?php
-namespace api\components;
+namespace components;
 
 function autoload($class)
 {
-  $array_paths = [
-    '/products/',
-    '/order/',
-    '/components/'
-  ];
 
-  foreach ($array_paths as $paths) {
-   $path =  ROOT  . $paths . $class . '.php';
-   if (is_file($path)) {
-     include_once $path;
-   }
+  $class = str_replace('\\', '/', $class);
+
+  $path =  ROOT  . '/' . $class . '.php';
+  
+  if (is_file($path)) {
+    include_once $path;
   }
 }
 
-spl_autoload_register('api\components\autoload');
+spl_autoload_register('components\autoload');
