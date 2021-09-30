@@ -1,4 +1,6 @@
 <?php
+use models\products\Products as Products;
+use models\order\Order as Order;
 
 
 define('ROOT', dirname(__FILE__));
@@ -11,5 +13,5 @@ $arr = [
   'status' => 'new',
 ];
 
-$a = new models\products\Products;
-$a->getProduct(2);
+$a = new Order('http://1162trainee.dev-bitrix.by/api/order/answer.json');
+$a->createOrder($arr);

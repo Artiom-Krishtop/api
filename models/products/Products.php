@@ -6,34 +6,41 @@ use components\Request as Request;
 
 class Products
 {
-  private $url = 'http://1162trainee.dev-bitrix.by/api/products/answerProducts.json';
-  protected $data;
+  private $url;
+  private $data;
 
-  function __construct()
+  function __construct($url)
   {
-    $this->data = new Request($this->url);
+    $this->data = new Request();
+    $this->url = $url;
   }
+
+  // получить список продуктов
 
   public function getListProducts()
   {
+    $this->data->setURL($this->url);
+
+    // получаем ответ в переменную
     $responseData = $this->data->GET();
-    
+
     return $responseData;
   }
 
+  // получить продукт по ID
+
   public function getProduct($id)
   {
+    // формируем URL для запроса
+    $url = $this->url . '?id=' . $id;
+
+    // устанавливаем URL в запрос
+    $this->data->setURL($url);
+    
+    // получаем ответ в переменную
     $responseData = $this->data->GET();
 
-    $responseData = json_decode($responseData, true);
-
-    // если вложеннсть данных большая?
-    for ($i=0; $i < 2 ; $i++) {
-      if ($responseData[$i]['id'] == $id) {
-        var_dump(json_encode($responseData[$i],JSON_UNESCAPED_UNICODE));
-        return $responseData[$i];
-      }
-    }
+    return $responseData;
   }
 
 }
