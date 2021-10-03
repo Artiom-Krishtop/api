@@ -20,16 +20,20 @@ $newOrder = [
   ]
 ];
 
-$API_products = 'products';
+$API_products = 'product';
 $API_order = 'orders';
 
 
-$products = new Collection(URIAPI, $API_order);
+$products = new Collection(URIAPI, $API_products);
 
+// $products->getCollection();
+print_r($prod = $products->getItemById(2));
+$prod->create('name', 'samsung');
+$prod->create('stock', '53');
 
-print_r($products->addItem($newOrder));
+echo "<br>";
+print_r($products->getList());
 
-// $a = new Product;
+// $a = new Product(['id' => '1', 'name' => 'example', 'stock' => '4', 'price' => '1234']);
 //
-// $id = 32;
-// var_dump($a->getProductsBiId($id));
+// var_dump($a->getId());

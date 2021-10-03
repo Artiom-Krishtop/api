@@ -5,30 +5,41 @@ namespace collection;
 
 Class Product implements Entity
 {
-  private $collection;
+  private $id;
+  private $name;
+  private $stock;
+  private $price;
 
 
-  function __construct()
+
+  function __construct($field)
   {
-    $this->collection = new Collection(URIAPI,'products');
+    $this->id = (int)$field['id'];
+    $this->name = $field['name'];
+    $this->stock = $field['stock'];
+    $this->price = $field['price'];
   }
 
-  public function getProducts()
+  public function create($field, $value)
   {
-    $result = $this->collection->getItem();
+    switch ($field) {
 
-    return $result;
-  }
+      case 'name':
+        $this->name = $value;
+        break;
 
-  public function getProductsBiId($id)
-  {
-    $result = $this->collection->getItem();
+      case 'stock':
+        $this->stock = $value;
+        break;
 
-    foreach ($result as $product) {
-      if ($product->id == $id) {
-        return $product;
-      }
+      case 'price':
+        $this->price = $value;
+        break;
     }
-    echo 'Такого товара не суцществует';
+  }
+
+  public function getId()
+  {
+    return $this->id;
   }
 }

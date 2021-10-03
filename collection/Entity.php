@@ -8,7 +8,6 @@ namespace collection;
  */
 interface Entity
 {
-  public function get();
-  public function add();
-  public function save();
+  public function create($field, $value);
+  public function getId();
 }
