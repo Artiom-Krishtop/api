@@ -1,12 +1,12 @@
 <?php
-use collection\Collection as Collection;
-use collection\Product as Product;
+use Collection\Collection as Collection;
+use Collection\Product as Product;
 
 
 define('ROOT', dirname(__FILE__));
 define('URIAPI','http://1162trainee.dev-bitrix.by/api/' );
 
-require_once ( ROOT . '/components/autoloader.php');
+require_once ( ROOT . '/Components/Autoloader.php');
 
 $newOrder = [
   'id' => 33,
@@ -24,15 +24,20 @@ $API_products = 'product';
 $API_order = 'orders';
 
 
-$products = new Collection(URIAPI, $API_products);
+$products = new Collection($API_products);
 
-// $products->getCollection();
-print_r($prod = $products->getItemById(2));
-$prod->create('name', 'samsung');
-$prod->create('stock', '53');
+$products->getCollection();
 
-echo "<br>";
-print_r($products->getList());
+// $product = $products->getItem('id', '2');
+// var_dump($product);
+//
+// echo "<br>";
+//
+// $product->offsetSet('name', 'hello world');
+//
+// var_dump($product);
+
+// print_r($products->getList());
 
 // $a = new Product(['id' => '1', 'name' => 'example', 'stock' => '4', 'price' => '1234']);
 //
