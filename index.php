@@ -1,7 +1,7 @@
 <?php
-use Collection\Collection as Collection;
-use Collection\Product as Product;
 
+use Collection\Collection;
+use Collection\Entity\{Product, Order};
 
 define('ROOT', dirname(__FILE__));
 define('URIAPI','http://1162trainee.dev-bitrix.by/api/' );
@@ -23,22 +23,12 @@ $newOrder = [
 $API_products = 'product';
 $API_order = 'orders';
 
+$products = new Collection(Order::class);
 
-$products = new Collection($API_products);
+$products->getList();
 
-$products->getCollection();
+$id_2 = $products->offsetGet('1');
 
-// $product = $products->getItem('id', '2');
-// var_dump($product);
-//
-// echo "<br>";
-//
-// $product->offsetSet('name', 'hello world');
-//
-// var_dump($product);
+$id = $id_2->create();
 
-// print_r($products->getList());
-
-// $a = new Product(['id' => '1', 'name' => 'example', 'stock' => '4', 'price' => '1234']);
-//
-// var_dump($a->getId());
+var_dump($id);

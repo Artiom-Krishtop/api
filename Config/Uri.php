@@ -6,30 +6,29 @@ namespace Config;
  */
 class Uri
 {
-  protected $entity;
+  protected $uri;
 
-  function __construct($entity)
+  function __construct($entity, $id = null)
   {
-    $this->entity = $entity;
+    if (is_null($id)) {
+      $id = '';
+    }else {
+      $id .= '/';
+    }
+    $this->uri = URIAPI . $entity . '/'. $id . $entity . '.json';
   }
 
-  public function setUri($method, $data)
+  public function setUri($method, $data = null)
   {
-    $uri = URIAPI . $this->entity . '/' . $this->entity . '.json';
+    $method = strtoupper($method);
+    if ($method == 'GET') {
+      if (!is_null($data)) {
 
-    $method = ucfirst(strtolower($method));
+        $query = http_build_query($data);
 
-    if ($method == 'Get') {
-      if (is_null($this->data) {
-        return $uri;
-      }else {
-        $uri = $uri . '?';
-        foreach ($data as $key => $value) {
-          $uri .= '&' . $key . '=' . $value;
-        }
-        return $uri;
+        $this->uri .= '?' . $query;
       }
     }
-    return $uri;
+    return $this->uri;
   }
 }

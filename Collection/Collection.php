@@ -1,56 +1,40 @@
 <?php
+
 namespace Collection;
-use Components\Request as Request;
-use Entity\Product as Product;
-use Config\Get as Get;
+
+use Config\Uri;
+use Request\Request;
+use Request\Method\Get;
+use Collection\Entity\IEntity;
 
 // класс для работы с коллекцией объектов
 
 class Collection
 {
   private $container = [];
-  private $request;
   private $entity;
 
   function __construct($entity)
   {
-    $this->entity = 'Entity\\' . ucfirst($entity);
+    $this->entity = $entity;
   }
 
   // Добавление объектов в коллекцию из API
 
   public function getCollection()
   {
-    $request = new Request(new Get(),'product');
-    $response = $request->request();
-    // $response = $this->request->request('get');
-    // $response = json_decode($response);
+    $request = new Request(
+      new Get,
+      new Uri($this->entity::ENTITY_CODE)
+    );
+
+    $response = json_decode($request->request());
 
     foreach ($response as $field) {
 
-      $this->container[] = new $this->entity($field);
+      $this->offsetSet(new $this->entity($field));
     }
-    var_dump($this->container);
-  }
-
-  // Обновление данных в API
-
-  public function saveCollection()
-  {
-    $JSONdata = json_encode($this->container);
-
-    $headers = 'Content-Type:application/json';
-
-    $this->request->POST($this->uri,$headers,$JSONdata);
-  }
-
-  // Добавление нового элемента в коллекцию
-
-  public function addItemInCollection($field)
-  {
-    $this->container[] = new $this->entity($field);
-
-    return $this->container;
+    // var_dump($this->container);
   }
 
   // Получить список объектов коллекции
@@ -60,19 +44,38 @@ class Collection
     if (empty($this->container)) {
       $this->getCollection();
     }
+
     return $this->container;
   }
 
-  // Получить объект по ключу
+  // Вставить объект в коллекцию
 
-  public function getItem($key, $value)
+  public function offsetSet(IEntity $value)
   {
-    foreach ($this->container as $obj)
-    {
-      if ($obj->offsetGet($key) == $value)
-      {
+    $this->container[] = $value;
+  }
+
+  // Получить объект коллекции
+
+  public function offsetGet($id)
+  {
+    foreach ($this->container as $obj) {
+      if ($obj->getId() == $id) {
         return $obj;
       }
     }
+  }
+
+  // Существует ли объект в коллекции
+
+  public function offsetExists($id)
+  {
+    foreach ($this->container as $obj) {
+      if ($obj->getId() == $id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

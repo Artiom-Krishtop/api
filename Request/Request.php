@@ -1,7 +1,9 @@
 <?php
-namespace components;
-use Config\Method as Method;
-use Config\Uri as Uri;
+
+namespace Request;
+
+use Request\Method\IMethod;
+use Config\Uri;
 
 // класс для HTTP запросов
 
@@ -9,20 +11,24 @@ class Request
 {
   protected $uri;
   protected $method;
+  protected $data;
 
-  function __construct(Method $method, $entity)
+  function __construct(IMethod $method, Uri $uri, $data = null)
   {
-    $this->uri = new Uri($entity);
     $this->method = $method;
+    $this->data = $data;
+
+    $this->uri = $uri;
   }
 
-  public function request($data = null)
+  public function request()
   {
     $curl = curl_init();
 
-    $method->set_options($curl);
+    $this->method->set_options($curl, $this->uri, $this->data);
 
     $response = curl_exec($curl);
+
     $error = curl_error($curl);
 
     if (!empty($error)) {
