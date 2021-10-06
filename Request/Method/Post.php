@@ -2,7 +2,7 @@
 
 namespace Request\Method;
 
-use Config\{Uri, Headers};
+use Request\Config\{Uri, Headers};
 
 class Post implements IMethod
 {
@@ -16,7 +16,7 @@ class Post implements IMethod
   public function set_options(&$curl,Uri $uri, $data = null)
   {
     curl_setopt_array($curl, [
-      CURLOPT_URL => $this->setUri($uri),
+      CURLOPT_URL => $uri->getUri(),
       CURLOPT_HTTPHEADER => $this->setHeaders(),
       CURLOPT_CUSTOMREQUEST => self::METHOD_TYPE,
       CURLOPT_POSTFIELDS => $this->setData($data),
@@ -37,11 +37,5 @@ class Post implements IMethod
     $json_data = json_encode($data);
 
     return $json_data;
-  }
-
-  protected function setUri(Uri $uri)
-  {
-    $uri = $uri->setUri(self::METHOD_TYPE);
-    return $uri;
   }
 }

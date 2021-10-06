@@ -1,7 +1,7 @@
 <?php
 namespace Request\Method;
 
-use Config\Uri;
+use Request\Config\Uri;
 
 interface IMethod
 {

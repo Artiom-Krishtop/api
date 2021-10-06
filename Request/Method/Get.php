@@ -2,7 +2,7 @@
 
 namespace Request\Method;
 
-use Config\{Uri, Headers};
+use Request\Config\Uri;
 
 class Get implements IMethod
 {
@@ -16,15 +16,9 @@ class Get implements IMethod
   public function set_options(&$curl,Uri $uri, $data = null)
   {
     curl_setopt_array($curl, [
-      CURLOPT_URL => $this->setUri($uri, $data),
+      CURLOPT_URL => $uri->getUri(),
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_XOAUTH2_BEARER => 'tocken',
     ]);
-  }
-
-  protected function setUri(Uri $uri, $data)
-  {
-    $uri = $uri->setUri(self::METHOD_TYPE, $data);
-    return $uri;
   }
 }

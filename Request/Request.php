@@ -3,7 +3,7 @@
 namespace Request;
 
 use Request\Method\IMethod;
-use Config\Uri;
+use Request\Config\Uri;
 
 // класс для HTTP запросов
 

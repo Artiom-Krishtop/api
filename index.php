@@ -3,6 +3,7 @@
 use Collection\Collection;
 use Collection\Entity\{Product, Order};
 
+
 define('ROOT', dirname(__FILE__));
 define('URIAPI','http://1162trainee.dev-bitrix.by/api/' );
 
@@ -23,12 +24,21 @@ $newOrder = [
 $API_products = 'product';
 $API_order = 'orders';
 
-$products = new Collection(Order::class);
+$order = new Collection(Order::class);
+
+$order->getList();
+
+$id_order = $order->offsetGet('1');
+
+var_dump($id_order);
+echo '<br>';
+
+$products = new Collection(Product::class);
 
 $products->getList();
 
-$id_2 = $products->offsetGet('1');
+$id_product = $products->offsetGet('2');
 
-$id = $id_2->create();
+$id_product = $id_product->getById('2');
 
-var_dump($id);
+var_dump($id_product);

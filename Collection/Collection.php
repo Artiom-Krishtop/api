@@ -2,10 +2,10 @@
 
 namespace Collection;
 
-use Config\Uri;
 use Request\Request;
+use Request\Config\Uri;
 use Request\Method\Get;
-use Collection\Entity\IEntity;
+use Collection\Entity\AbstractEntity;
 
 // класс для работы с коллекцией объектов
 
@@ -21,14 +21,14 @@ class Collection
 
   // Добавление объектов в коллекцию из API
 
-  public function getCollection()
+  protected function getCollection()
   {
     $request = new Request(
       new Get,
       new Uri($this->entity::ENTITY_CODE)
     );
 
-    $response = json_decode($request->request());
+    $response = json_decode($request->request(), true);
 
     foreach ($response as $field) {
 
@@ -50,9 +50,13 @@ class Collection
 
   // Вставить объект в коллекцию
 
-  public function offsetSet(IEntity $value)
+  public function offsetSet(AbstractEntity $value)
   {
-    $this->container[] = $value;
+    if ($this->offsetSet($value->getId)) {
+      $this->container[] = $value;
+    } else {
+      echo 'Объект с таким ID уже существует!';
+    }
   }
 
   // Получить объект коллекции
