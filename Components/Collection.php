@@ -82,9 +82,4 @@ class Collection
 
     return false;
   }
-
-  public function offsetDelete($id)
-  {
-    unset($this->offsetGet($id));
-  }
 }

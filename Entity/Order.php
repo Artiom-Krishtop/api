@@ -12,14 +12,14 @@ class Order extends AbstractEntity
 {
   const ENTITY_CODE = 'order';
 
-  public function addProduct(Collection $product )
+  public function addCollection(Collection $product )
   {
     $this->container['products'] = $product;
 
     return $this->container['products'];
   }
 
-  public function removeProduct($key)
+  public function removeCollection($key)
   {
     unset($this->container['products'][$key]);
   }
