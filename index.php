@@ -10,15 +10,17 @@ define('URIAPI','http://1162trainee.dev-bitrix.by/api/' );
 require_once ( ROOT . '/Components/Autoloader.php');
 
 $newOrder = [
-  'id' => 33,
-  'title' => 'Заказ №1',
-  'status' => 'new',
-  'id' => [
-    'id' => 2,
-    'name' => 'Телефон нокиа 3310',
-    'stock' => 0,
+    'id' => 347382417,
+    'name' => 'Автомобиль БМВ 3310',
+    'quantity' => 0,
     'price' => 2000.00,
-  ]
+];
+
+$newOrder2 = [
+    'id' =>73246,
+    'name' => 'Шаурма XXL',
+    'quantity' => 34,
+    'price' => 4500.00,
 ];
 
 $API_products = 'product';
@@ -26,20 +28,16 @@ $API_order = 'orders';
 
 $order = new Collection(Order::class);
 
-$arrObj = $order->getList();
-$arrObj[0]->setTitle('ready');
+$order->getList();
 
-$id_order = $arrObj[0]->getFields();
+$id_order = $order->offsetGet('1');
 
-var_dump($id_order);
-echo '<br>';
+$id_order->removeProduct(0);
 
-$products = new Collection(Product::class);
+$CartOrder = $id_order->addProduct(new Collection(Product::class));
 
-$products->getList();
+$CartOrder->offsetSet(new Product($newOrder));
+$CartOrder->offsetSet(new Product($newOrder2));
 
-$id_product = $products->offsetGet('2');
 
-$id_product = $id_product->getById('2');
-
-var_dump($id_product);
+var_dump($CartOrder->getList());

@@ -50,7 +50,7 @@ class Collection
 
   // Вставить объект в коллекцию
 
-  public function offsetSet(AbstractEntity $value)
+  public function offsetSet(object $value)
   {
     if ($this->offsetExists($value->getId())) {
       echo 'Объект с таким ID уже существует!';
@@ -81,5 +81,10 @@ class Collection
     }
 
     return false;
+  }
+
+  public function offsetDelete($id)
+  {
+    unset($this->offsetGet($id));
   }
 }
