@@ -1,6 +1,6 @@
 <?php
 
-namespace Collection;
+namespace Components;
 
 use Request\Request;
 use Request\Config\Uri;
@@ -52,10 +52,10 @@ class Collection
 
   public function offsetSet(AbstractEntity $value)
   {
-    if ($this->offsetSet($value->getId)) {
-      $this->container[] = $value;
-    } else {
+    if ($this->offsetExists($value->getId())) {
       echo 'Объект с таким ID уже существует!';
+    } else {
+      $this->container[] = $value;
     }
   }
 

@@ -1,5 +1,5 @@
 <?php
-namespace components;
+namespace Components;
 
 function autoload($class)
 {
@@ -7,7 +7,7 @@ function autoload($class)
   $class = str_replace('\\', '/', $class);
 
   $path =  ROOT  . '/' . $class . '.php';
-  
+
   if (is_file($path)) {
     include_once $path;
   }

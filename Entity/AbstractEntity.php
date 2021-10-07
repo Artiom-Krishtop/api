@@ -1,6 +1,6 @@
 <?php
 
-namespace Collection\Entity;
+namespace Entity;
 
 use Request\Request;
 use Request\Config\Uri;
@@ -83,5 +83,10 @@ abstract class AbstractEntity
   protected function editRequest(IMethod $method, Uri $uri, $data = null)
   {
     return new Request($method, $uri, $data);
+  }
+
+  public function getFields()
+  {
+    return $this->container;
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Collection\Entity;
+namespace Entity;
 
 use Request\Request;
 use Request\Config\Uri;

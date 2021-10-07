@@ -1,7 +1,7 @@
 <?php
 
-use Collection\Collection;
-use Collection\Entity\{Product, Order};
+use Components\Collection;
+use Entity\{Product, Order};
 
 
 define('ROOT', dirname(__FILE__));
@@ -26,9 +26,10 @@ $API_order = 'orders';
 
 $order = new Collection(Order::class);
 
-$order->getList();
+$arrObj = $order->getList();
+$arrObj[0]->setTitle('ready');
 
-$id_order = $order->offsetGet('1');
+$id_order = $arrObj[0]->getFields();
 
 var_dump($id_order);
 echo '<br>';

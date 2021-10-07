@@ -16,7 +16,6 @@ class Uri
       $id .= '/';
     }
     $this->uri = URIAPI . $urn . '/'. $id . $urn . '.json';
-    echo $this->uri . '<br>';
   }
 
   public function getUri()
