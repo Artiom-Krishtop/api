@@ -23,9 +23,9 @@ class Collection
 
   protected function getCollection()
   {
-    $request = new Request(
-      new Get,
-      new Uri($this->entity::ENTITY_CODE)
+    $request = $this->editRequest(
+      new Get(),
+      new Uri(static::ENTITY_CODE)
     );
 
     $response = json_decode($request->request(), true);
