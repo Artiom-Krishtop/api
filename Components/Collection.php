@@ -82,4 +82,26 @@ class Collection
 
     return false;
   }
+
+  // Метод для создания запроса к  API
+
+  protected function editRequest(IMethod $method, Uri $uri, $data = null)
+  {
+    return new Request($method, $uri, $data);
+  }
+
+  // Сохранить коллекцию
+
+  public function saveCollection()
+  {
+    $request = $this->editRequest(
+      new Put(),
+      new Uri(static::ENTITY_CODE),
+      $this->container
+    );
+
+    $response = $request->request();
+
+    return $response;
+  }
 }
