@@ -35,8 +35,8 @@ class Put implements IMethod
 
   protected function setData($data)
   {
-    $json_data = json_encode($data);
-
+    $json_data = json_encode($data, JSON_UNESCAPED_UNICODE);
+    
     return $json_data;
   }
 }

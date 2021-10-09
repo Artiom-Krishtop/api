@@ -32,12 +32,15 @@ $order->getList();
 
 $id_order = $order->offsetGet('1');
 
-$id_order->removeProduct(0);
+$id_order->setStatus('prodano');
 
-$CartOrder = $id_order->addProduct(new Collection(Product::class));
+$id_order->removeCollection(0);
+
+$CartOrder = $id_order->addCollection(new Collection(Product::class));
 
 $CartOrder->offsetSet(new Product($newOrder));
 $CartOrder->offsetSet(new Product($newOrder2));
 
 
-var_dump($CartOrder->getList());
+// $order->saveCollection();
+var_dump($order->saveCollection());

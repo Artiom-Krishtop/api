@@ -4,8 +4,8 @@ namespace Components;
 
 use Request\Request;
 use Request\Config\Uri;
-use Request\Method\Get;
-use Collection\Entity\AbstractEntity;
+use Request\Method\{IMethod, Get, Put};
+use Entity\AbstractEntity;
 
 // класс для работы с коллекцией объектов
 
@@ -25,7 +25,7 @@ class Collection
   {
     $request = $this->editRequest(
       new Get(),
-      new Uri(static::ENTITY_CODE)
+      new Uri($this->entity::ENTITY_CODE)
     );
 
     $response = json_decode($request->request(), true);
@@ -90,14 +90,27 @@ class Collection
     return new Request($method, $uri, $data);
   }
 
+  // Получить свойтсва объектов коллекции
+
+  public function getFieldsObj()
+  {
+    $arrData = [];
+
+    foreach ($this->container as $obj) {
+      $arrData[] = $obj->getFields();
+    }
+
+    return $arrData;
+  }
+
   // Сохранить коллекцию
 
   public function saveCollection()
   {
     $request = $this->editRequest(
       new Put(),
-      new Uri(static::ENTITY_CODE),
-      $this->container
+      new Uri($this->entity::ENTITY_CODE),
+      $this->getFieldsObj()
     );
 
     $response = $request->request();

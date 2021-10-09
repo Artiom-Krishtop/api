@@ -87,6 +87,14 @@ abstract class AbstractEntity
 
   public function getFields()
   {
-    return $this->container;
+    $arrayFields = [];
+
+    $arrayFields['id'] = $this->id;
+
+    foreach ($this->container as $key => $value) {
+      $arrayFields[$key] = $value;
+    }
+    
+    return $arrayFields;
   }
 }

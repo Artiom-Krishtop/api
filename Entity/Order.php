@@ -12,6 +12,21 @@ class Order extends AbstractEntity
 {
   const ENTITY_CODE = 'order';
 
+  public function getFields()
+  {
+    $arrayFields = [];
+
+    $arrayFields['id'] = $this->id;
+
+    foreach ($this->container as $key => $value) {
+      $arrayFields[$key] = $value;
+    }
+
+    $arrayFields['products'] = $this->container['products']->getFieldsObj();
+
+    return $arrayFields;
+  }
+
   // Коллекция для работы с товарами заказа
 
   public function addCollection(Collection $product )
